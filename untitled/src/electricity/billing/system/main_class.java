@@ -1,5 +1,7 @@
 package electricity.billing.system;
 
+import com.mysql.cj.log.Log;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,19 +9,19 @@ import java.awt.event.ActionListener;
 
 public class main_class extends JFrame implements ActionListener {
     String acctype;
-    String meterNo;
-    main_class(String acctype , String meterNo){
-        this.acctype=acctype;
-        this.meterNo=meterNo;
+    String meter_pass;
+    main_class(String acctype, String meter_pass){
+        this.meter_pass = meter_pass;
+        this.acctype = acctype;
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         ImageIcon imageIcon = new ImageIcon(ClassLoader.getSystemResource("icon/ebs.png"));
-        Image imageOne = imageIcon.getImage().getScaledInstance(1366,720,Image.SCALE_DEFAULT);
-        ImageIcon imageIcon2 = new ImageIcon(imageOne);
-        JLabel imageLabel = new JLabel(imageIcon2);
-        add(imageLabel);
+        Image image = imageIcon.getImage().getScaledInstance(1530,830,Image.SCALE_DEFAULT);
+        ImageIcon imageIcon2 = new ImageIcon(image);
+        JLabel imageLable = new JLabel(imageIcon2);
+        add(imageLable);
 
-        JMenuBar menuBar =new JMenuBar();
+        JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
 
         JMenu menu = new JMenu("Menu");
@@ -29,16 +31,16 @@ public class main_class extends JFrame implements ActionListener {
         JMenuItem newcustomer = new JMenuItem("New Customer");
         newcustomer.setFont(new Font("monospaced",Font.PLAIN,14));
         ImageIcon customerImg = new ImageIcon(ClassLoader.getSystemResource("icon/newcustomer.png"));
-        Image customerImg1 = customerImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
-        newcustomer.setIcon(new ImageIcon(customerImg1));
+        Image customerImage = customerImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
+        newcustomer.setIcon(new ImageIcon(customerImage));
         newcustomer.addActionListener(this);
         menu.add(newcustomer);
 
         JMenuItem customerdetails = new JMenuItem("Customer Details");
         customerdetails.setFont(new Font("monospaced",Font.PLAIN,14));
         ImageIcon customerdetailsImg = new ImageIcon(ClassLoader.getSystemResource("icon/customerDetails.png"));
-        Image customerdetailsImg1 = customerdetailsImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
-        customerdetails.setIcon(new ImageIcon(customerdetailsImg1));
+        Image customerdetailsImage = customerdetailsImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
+        customerdetails.setIcon(new ImageIcon(customerdetailsImage));
         customerdetails.addActionListener(this);
         menu.add(customerdetails);
 
@@ -58,15 +60,17 @@ public class main_class extends JFrame implements ActionListener {
         calculatebill.addActionListener(this);
         menu.add(calculatebill);
 
+
         JMenu info = new JMenu("Information");
         info.setFont(new Font("serif",Font.PLAIN,15));
 
 
-        JMenuItem upinfo = new JMenuItem("Update Information");
+        JMenuItem upinfo =new JMenuItem("Update Information");
         upinfo.setFont(new Font("monospaced",Font.PLAIN,14));
         ImageIcon upinfoImg = new ImageIcon(ClassLoader.getSystemResource("icon/refresh.png"));
-        Image upinfoImg1 = upinfoImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
-        upinfo.setIcon(new ImageIcon(upinfoImg1));
+        Image upinfoImage = upinfoImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
+        upinfo.setIcon(new ImageIcon(upinfoImage));
+        upinfo.addActionListener(this);
         info.add(upinfo);
 
         JMenuItem viewInfo =new JMenuItem("View Information");
@@ -74,29 +78,31 @@ public class main_class extends JFrame implements ActionListener {
         ImageIcon viewInfoImg = new ImageIcon(ClassLoader.getSystemResource("icon/information.png"));
         Image viewInfoImage = viewInfoImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
         viewInfo.setIcon(new ImageIcon(viewInfoImage));
+        viewInfo.addActionListener(this);
         info.add(viewInfo);
 
         JMenu user = new JMenu("User");
         user.setFont(new Font("serif",Font.PLAIN,15));
 
 
-        JMenuItem paybill = new JMenuItem("Pay Bill");
+        JMenuItem paybill =new JMenuItem("Pay Bill");
         paybill.setFont(new Font("monospaced",Font.PLAIN,14));
         ImageIcon paybillImg = new ImageIcon(ClassLoader.getSystemResource("icon/pay.png"));
-        Image paybillImg1 = paybillImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
-        paybill.setIcon(new ImageIcon(paybillImg1));
+        Image paybillImage = paybillImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
+        paybill.setIcon(new ImageIcon(paybillImage));
+        paybill.addActionListener(this);
         user.add(paybill);
 
-        JMenuItem billdetails = new JMenuItem("Bill Details");
+        JMenuItem billdetails =new JMenuItem("Bill Details");
         billdetails.setFont(new Font("monospaced",Font.PLAIN,14));
         ImageIcon billdetailsImg = new ImageIcon(ClassLoader.getSystemResource("icon/detail.png"));
-        Image billdetailsImg1 = billdetailsImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
-        billdetails.setIcon(new ImageIcon(billdetailsImg1));
+        Image billdetailsImage = billdetailsImg.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT);
+        billdetails.setIcon(new ImageIcon(billdetailsImage));
+        billdetails.addActionListener(this);
         user.add(billdetails);
 
         JMenu bill = new JMenu("Bill");
         bill.setFont(new Font("serif",Font.PLAIN,15));
-
 
 
         JMenuItem genBill =new JMenuItem("Generate Bill");
@@ -109,7 +115,6 @@ public class main_class extends JFrame implements ActionListener {
 
         JMenu utility = new JMenu("Utility");
         utility.setFont(new Font("serif",Font.PLAIN,15));
-
 
 
         JMenuItem notepad =new JMenuItem("Notepad");
@@ -130,7 +135,7 @@ public class main_class extends JFrame implements ActionListener {
         utility.add(calculator);
 
         JMenu exit = new JMenu("Exit");
-        exit.setFont(new Font("serif",Font.PLAIN,14));
+        exit.setFont(new Font("serif",Font.PLAIN,15));
 
 
         JMenuItem eexit =new JMenuItem("Exit");
@@ -140,7 +145,8 @@ public class main_class extends JFrame implements ActionListener {
         eexit.setIcon(new ImageIcon(eexitImage));
         eexit.addActionListener(this);
         exit.add(eexit);
-        if(acctype.equals("Admin")){
+
+        if (acctype.equals("Admin")){
             menuBar.add(menu);
         }else {
             menuBar.add(bill);
@@ -149,6 +155,8 @@ public class main_class extends JFrame implements ActionListener {
         }
         menuBar.add(utility);
         menuBar.add(exit);
+
+
         setLayout(new FlowLayout());
         setVisible(true);
     }
@@ -156,39 +164,39 @@ public class main_class extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String msg = e.getActionCommand();
-        if(msg.equals("New Customer")){
+        if (msg.equals("New Customer")) {
             new newCustomer();
         } else if (msg.equals("Customer Details")) {
             new customer_details();
-        }else if (msg.equals("Deposit Details")){
+        } else if (msg.equals("Deposit Details")) {
             new deposit_details();
         } else if (msg.equals("Calculate Bill")) {
             new calculate_bill();
         } else if (msg.equals("View Information")) {
-            new view_information(meterNo);
+            new view_information(meter_pass);
         } else if (msg.equals("Update Information")) {
-           new update_information(meterNo);
+            new update_information(meter_pass);
         } else if (msg.equals("Bill Details")) {
-            new bill_details(meterNo);
-        }else if(msg.equals("Calculator")){
+            new bill_details(meter_pass);
+        } else if (msg.equals("Calculator")) {
             try{
                 Runtime.getRuntime().exec("calc.exe");
-            } catch (Exception E){
+            }catch (Exception E){
                 E.printStackTrace();
             }
-        }else if(msg.equals("Notepad")){
+        } else if (msg.equals("Notepad")) {
             try{
                 Runtime.getRuntime().exec("notepad.exe");
-            } catch (Exception E) {
+            }catch (Exception E){
                 E.printStackTrace();
             }
         } else if (msg.equals("Exit")) {
             setVisible(false);
             new Login();
         } else if (msg.equals("Pay Bill")) {
-            new pay_bill(meterNo);
+            new pay_bill(meter_pass);
         } else if (msg.equals("Generate Bill")) {
-            new generate_bill(meterNo);
+            new generate_bill(meter_pass);
         }
     }
 
