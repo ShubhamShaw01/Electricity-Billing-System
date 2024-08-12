@@ -34,7 +34,7 @@ public class view_information extends JFrame implements ActionListener {
         meterNo.setBounds(70,120,100,20);
         add(meterNo);
 
-        JLabel meterNoText = new JLabel("");
+        JLabel meterNoText = new JLabel(view);
         meterNoText.setBounds(190,120,100,20);
         add(meterNoText);
 
